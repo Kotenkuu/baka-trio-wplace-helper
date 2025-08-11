@@ -55,9 +55,9 @@ let selectedX = null;
 let selectedY = null;
 
 let chunkSize = 20;
-let rootWplaceX = 3001;
-let rootWplaceY = 500;
-let wplaceName = "Thanh Hoá #5";
+let rootWplaceX = 1138;
+let rootWplaceY = 2759;
+let wplaceName = "Biên Hòa";
 
 const chunkCanvas = document.getElementById('chunkCanvas');
 const chunkCtx = chunkCanvas.getContext('2d');
@@ -75,7 +75,7 @@ window.addEventListener('load', () => {
 
     redraw();
   };
-  img.src = './images/Mumu-chibi-wplace.png'; // your default image file
+  img.src = './images/triple-baka.png'; // your default image file
 });
 
 // Zoom buttons
