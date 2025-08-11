@@ -16,6 +16,8 @@ body {
   position: relative;
   border: 1px solid #ccc;
   overflow: hidden;
+  width: 100%;
+  height: auto;
 }
 
 canvas {

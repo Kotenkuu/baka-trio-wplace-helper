@@ -51,8 +51,8 @@ let scale = 1;
 let originalImage = null;
 
 // Selected pixel coordinates
-let selectedX = null;
-let selectedY = null;
+let selectedX = 0;
+let selectedY = 0;
 
 let chunkSize = 20;
 let rootWplaceX = 1138;
@@ -61,19 +61,28 @@ let wplaceName = "Biên Hòa";
 
 const chunkCanvas = document.getElementById('chunkCanvas');
 const chunkCtx = chunkCanvas.getContext('2d');
+const canvasContainer = document.getElementById('canvasContainer');
 
 // Preload default image
 window.addEventListener('load', () => {
   img.onload = function() {
-    scale = 5; // Start zoomed in 5x
+    const containerWidth = canvasContainer.clientWidth;
+
+    // Calculate scale to fit within container
+    scale = Math.min(
+      containerWidth / img.width
+    );
 
     // Draw at native resolution to get original pixels
-    canvas.width = img.width;
-    canvas.height = img.height;
+    canvas.width = img.width * scale;
+    canvas.height = img.height * scale;
     ctx.drawImage(img, 0, 0);
     originalImage = ctx.getImageData(0, 0, img.width, img.height);
 
     redraw();
+
+    chunkCanvas.width = chunkSize * 10;
+    chunkCanvas.height = chunkSize * 10;
   };
   img.src = './images/triple-baka.png'; // your default image file
 });
@@ -156,8 +165,6 @@ function showChunkForPixel(x, y) {
     }
   }
 
-  chunkCanvas.width = width * 10;
-  chunkCanvas.height = height * 10;
   chunkCtx.imageSmoothingEnabled = false;
 
   const tempCanvas = document.createElement('canvas');
