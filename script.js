@@ -169,8 +169,8 @@ function showChunkForPixel(x, y) {
   const chunkX = Math.floor(x / chunkSize);
   const chunkY = Math.floor(y / chunkSize);
   
-  const x1 = chunkX * chunkSize;
-  const y1 = chunkY * chunkSize;
+  const x1 = Math.min(chunkX * chunkSize, originalImage.width - chunkSize);
+  const y1 = Math.min(chunkY * chunkSize, originalImage.height - chunkSize);
   const x2 = Math.min(x1 + chunkSize, originalImage.width) - 1;
   const y2 = Math.min(y1 + chunkSize, originalImage.height) - 1;
 
@@ -198,6 +198,11 @@ function showChunkForPixel(x, y) {
   chunkCtx.drawImage(tempCanvas, 0, 0, chunkCanvas.width, chunkCanvas.height);
 
   // Highlight the selected pixel in chunk view
+  // console.log(`Selected pixel: (${x}, ${y}) in chunk (${chunkX}, ${chunkY})`);
+  // console.log(originalImage.width - x, originalImage.height - y);
+  // const offsetXAtEdge = (originalImage.width - x) < chunkSize ? (originalImage.width - x) % chunkSize : 0;
+  // const offsetYAtEdge = (originalImage.height - y) < chunkSize ? (originalImage.height - y) % chunkSize : 0;
+  // console.log(`Offset X: ${offsetXAtEdge}, Offset Y: ${offsetYAtEdge}`);
   const selChunkX = (x - x1) * 10;
   const selChunkY = (y - y1) * 10;
   chunkCtx.strokeStyle = 'red';
